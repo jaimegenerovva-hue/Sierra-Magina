@@ -331,7 +331,7 @@ export default function App() {
         </div>
 
         {/* Description and Contact Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-8">
           <div className="lg:col-span-2">
             <div className="space-y-6 text-[15px] leading-relaxed text-slate-600">
               <p>Te presentamos esta fantástica casa situada en Bollullos de la Mitación, en pleno Aljarafe sevillano, una ubicación ideal para quienes buscan tranquilidad, amplitud y calidad de vida sin renunciar a una buena conexión con Sevilla. La vivienda se asienta sobre una parcela de aproximadamente 250 m², ofreciendo privacidad, comodidad y un entorno perfecto para disfrutar en familia.</p>
@@ -398,7 +398,7 @@ export default function App() {
 
         {/* Location Section - Editorial & Functional */}
         <div className="mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Left Column: Location Info */}
             <div className="order-2 lg:order-1">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 text-slate-500 rounded-full mb-6">
