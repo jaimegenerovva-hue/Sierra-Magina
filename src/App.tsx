@@ -342,14 +342,14 @@ export default function App() {
           <div className="lg:col-span-1">
             <div className="bg-[#F8F9FA] rounded-xl border border-slate-200 overflow-hidden shadow-sm">
               <div className="bg-primary px-6 py-3.5 text-center">
-                <h4 className="text-white font-bold tracking-wider uppercase text-[13px]">Magdalena Gerente de Comprarcasa Suhogar</h4>
+                <h4 className="text-white font-bold tracking-wider uppercase text-[13px]">Yolanda Agente de Comprarcasa Suhogar</h4>
               </div>
               <div className="p-8">
                 <div className="flex justify-center mb-8">
                   <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-white shadow-md">
                     <img 
-                      src="https://i.ibb.co/3yvvt76w/imagen.jpg" 
-                      alt="Magdalena - Gerente" 
+                      src="https://i.ibb.co/SWn85nz/foto-yolanda.jpg" 
+                      alt="Yolanda - Agente" 
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
                     />
