@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { 
   Home, 
   List, 
@@ -29,7 +29,8 @@ import {
   Trees,
   ChevronLeft,
   ChevronRight,
-  Menu
+  Menu,
+  ZoomIn
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -103,6 +104,17 @@ export default function App() {
       setSelectedImageIndex((selectedImageIndex - 1 + PROPERTY_IMAGES.length) % PROPERTY_IMAGES.length);
     }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return;
+      if (e.key === 'Escape') setSelectedImageIndex(null);
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImageIndex]);
 
   const handleShare = async () => {
     try {
@@ -238,45 +250,77 @@ export default function App() {
 
         {/* Hero Gallery */}
         <div className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-2 h-auto md:h-[500px] mb-12 overflow-hidden rounded-xl">
-          <div className="col-span-2 row-span-1 md:row-span-2 relative h-[250px] md:h-full">
+          <div 
+            className="col-span-2 row-span-1 md:row-span-2 relative h-[250px] md:h-full cursor-zoom-in group overflow-hidden"
+            onClick={() => setSelectedImageIndex(0)}
+          >
             <img 
               alt="Fachada principal" 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
               src="https://fotos15.apinmo.com/3503/15632752/29-1.jpg"
               referrerPolicy="no-referrer"
             />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <div className="bg-white/20 backdrop-blur-md p-3 rounded-full border border-white/30">
+                <ZoomIn className="text-white w-6 h-6" />
+              </div>
+            </div>
           </div>
-          <div className="col-span-1 row-span-1 h-[120px] md:h-full">
+          <div 
+            className="col-span-1 row-span-1 h-[120px] md:h-full cursor-zoom-in group overflow-hidden relative"
+            onClick={() => setSelectedImageIndex(8)}
+          >
             <img 
               alt="Salón comedor" 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               src="https://fotos15.apinmo.com/3503/15632752/29-9.jpg"
               referrerPolicy="no-referrer"
             />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <ZoomIn className="text-white w-5 h-5" />
+            </div>
           </div>
-          <div className="col-span-1 row-span-1 h-[120px] md:h-full">
+          <div 
+            className="col-span-1 row-span-1 h-[120px] md:h-full cursor-zoom-in group overflow-hidden relative"
+            onClick={() => setSelectedImageIndex(22)}
+          >
             <img 
               alt="Dormitorio principal" 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               src="https://fotos15.apinmo.com/3503/15632752/29-23s.jpg"
               referrerPolicy="no-referrer"
             />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <ZoomIn className="text-white w-5 h-5" />
+            </div>
           </div>
-          <div className="col-span-1 row-span-1 h-[120px] md:h-full">
+          <div 
+            className="col-span-1 row-span-1 h-[120px] md:h-full cursor-zoom-in group overflow-hidden relative"
+            onClick={() => setSelectedImageIndex(33)}
+          >
             <img 
               alt="Cocina equipada" 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               src="https://fotos15.apinmo.com/3503/15632752/29-35s.jpg"
               referrerPolicy="no-referrer"
             />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <ZoomIn className="text-white w-5 h-5" />
+            </div>
           </div>
-          <div className="col-span-1 row-span-1 h-[120px] md:h-full">
+          <div 
+            className="col-span-1 row-span-1 h-[120px] md:h-full cursor-zoom-in group overflow-hidden relative"
+            onClick={() => setSelectedImageIndex(18)}
+          >
             <img 
               alt="Detalle vivienda" 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               src="https://fotos15.apinmo.com/3503/15632752/29-19s.jpg"
               referrerPolicy="no-referrer"
             />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <ZoomIn className="text-white w-5 h-5" />
+            </div>
           </div>
         </div>
 
@@ -312,17 +356,17 @@ export default function App() {
               {PROPERTY_IMAGES.map((src, idx) => (
                 <div 
                   key={idx} 
-                  className="flex-none w-48 h-32 rounded bg-slate-100 overflow-hidden snap-start cursor-pointer hover:opacity-90 transition-opacity relative group"
+                  className="flex-none w-48 h-32 rounded bg-slate-100 overflow-hidden snap-start cursor-zoom-in relative group"
                   onClick={() => setSelectedImageIndex(idx)}
                 >
                   <img 
                     alt={`Gallery ${idx + 1}`} 
-                    className="w-full h-full object-cover" 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                     src={src}
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                    <Maximize className="text-white opacity-0 group-hover:opacity-100 w-5 h-5 transition-opacity" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <ZoomIn className="text-white w-5 h-5 transition-transform group-hover:scale-110" />
                   </div>
                 </div>
               ))}
@@ -659,17 +703,24 @@ export default function App() {
               <ChevronRight className="w-8 h-8" />
             </button>
 
-            <div className="relative max-w-[90vw] max-h-[85vh] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <div className="relative max-w-[90vw] max-h-[85vh] flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
               <motion.img 
                 key={selectedImageIndex}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.95, x: 20 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                exit={{ opacity: 0, scale: 0.95, x: -20 }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x > 100) prevImage();
+                  else if (info.offset.x < -100) nextImage();
+                }}
                 src={PROPERTY_IMAGES[selectedImageIndex]} 
                 alt={`Property ${selectedImageIndex + 1}`}
-                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl cursor-grab active:cursor-grabbing"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-white/60 text-sm font-medium">
+              <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-white/80 text-[13px] font-bold tracking-widest uppercase bg-black/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
                 {selectedImageIndex + 1} / {PROPERTY_IMAGES.length}
               </div>
             </div>
